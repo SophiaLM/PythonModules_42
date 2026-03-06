@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 
-# Clase base
+# Clase base que hara de padre
+# Type_id: no podemos usar duck typing, ni ninguna funcion
+# que reconozca cada hijo de su padre, puesto que para:
+# Plant types: 1 regular, 1 flowering, 1 prize flowers y para
+# cumplir con lo siguiente: Each garden should track plant collections
+# and statistics; deberemos manejar los datos de esas plantas
+
 class Plant:
     type_id = 0
 
@@ -8,14 +14,16 @@ class Plant:
         self.name = name
         self.height = height
 
-    def grow(self):
+    def grow(self):  # Metodo de instancia! modifica estado de height
         self.height += 1
         print(f"{self.name} grew 1cm")
 
+    # Metodo de instancia! la base, lo mejoraremos con las clases hijas
     def get_info(self):
         return f"{self.name}: {self.height}cm"
 
 
+# Primer hijo, agregamos los datos de plant con super
 class FloweringPlant(Plant):
     type_id = 1
 
@@ -23,10 +31,13 @@ class FloweringPlant(Plant):
         super().__init__(name, height)
         self.color = color
 
+    # Polimorfismo? llamo a la informacion de get_info original
+    # Y agrego aquello nuevo que necesito (grande el super)
     def get_info(self):
         return f"{super().get_info()}, {self.color} flowers (blooming)"
 
 
+# Repetimos
 class PrizeFlower(FloweringPlant):
     type_id = 2
 
@@ -38,25 +49,38 @@ class PrizeFlower(FloweringPlant):
         return f"{super().get_info()}, Prize points: {self.pts}"
 
 
+# CLASE GARDEN gestion de datos individuales del jardin
 class Garden:
     def __init__(self, owner):
         self.owner = owner
-        self.plants = []
+        self.plants = []   # Lista de plantas del jardin
         self.added = 0
         self.total_growth = 0
 
     def add_plant(self, plant):
-        # no usamos len ni nada raro, solo concatenación
+        # Concatenacion, como mi str_append
         self.plants = self.plants + [plant]
         self.added += 1
         print(f"Added {plant.name} to {self.owner}'s garden")
 
+    # P se crea automaticamente con cada vuelta del bucle,
+    # Basicamente ejecuta la funcion en cada planta
     def grow_all(self):
         print(f"{self.owner} is helping all plants grow...")
         for p in self.plants:
             p.grow()
             self.total_growth += 1
 
+
+# ===EMPEZAMOS GARDEN MANAGER===#
+
+# Manager y helper == manejamos el numero de plantas y cuanto crecieron.
+# Definimos un molde para el dueño del jardin, y numero de jardines
+# Definimos GardenStats(subject) que sera un helper
+# (maneja una tarea secundaria)
+# Definimos el metodo statico count_types, donde usaremos el id para
+# reconocer el tipo de planta y marcarla con un numero
+# Ahora si inicializamos, agregamos los jardines
 
 class GardenManager:
     total_gardens = 0
@@ -67,17 +91,17 @@ class GardenManager:
 
         @staticmethod
         def count_types(plants):
-            regular = 0
-            flowering = 0
-            prize = 0
+            r = 0
+            f = 0
+            pf = 0
             for p in plants:
                 if p.type_id == 0:
-                    regular += 1
+                    r += 1
                 elif p.type_id == 1:
-                    flowering += 1
+                    f += 1
                 elif p.type_id == 2:
-                    prize += 1
-            return regular, flowering, prize
+                    pf += 1
+            return r, f, pf
 
         @staticmethod
         def garden_score(plants):
@@ -97,60 +121,4 @@ class GardenManager:
 
     @classmethod
     def create_garden_network(cls):
-        return cls.total_gardens
-
-    @staticmethod
-    def height_validation(plant):
-        return plant.height > 0
-
-
-def main():
-    print("=== Garden Management System Demo ===")
-
-    manager = GardenManager()
-
-    sophy_g = Garden("Sophy")
-    david_g = Garden("David")
-
-    manager.add_garden(sophy_g)
-    manager.add_garden(david_g)
-
-    oak = Plant("Oak Tree", 100)
-    rose = FloweringPlant("Rose", 25, "red")
-    sunflower = PrizeFlower("Sunflower", 50, "yellow", 10)
-
-    sophy_g.add_plant(oak)
-    sophy_g.add_plant(rose)
-    sophy_g.add_plant(sunflower)
-    sophy_g.grow_all()
-
-    print(f"\n=== {sophy_g.owner}'s Garden Report ===")
-    print("Plants in garden:")
-    for p in sophy_g.plants:
-        print(f"- {p.get_info()}")
-
-    print(
-        f"Plants added: {sophy_g.added}, "
-        f"Total growth: {sophy_g.total_growth}cm"
-    )
-
-    stats_helper = GardenManager.GardenStats
-    r, f, pf = stats_helper.count_types(sophy_g.plants)
-    print(
-        f"Plant types: {r} regular, {f} flowering, {pf} prize flowers"
-    )
-
-    is_valid = GardenManager.height_validation(oak)
-    print(f"Height validation test: {is_valid}")
-
-    sophy_score = stats_helper.garden_score(sophy_g.plants)
-    david_score = stats_helper.garden_score(david_g.plants)
-    print(f"Garden scores - {sophy_g.owner}: {sophy_score}, "
-          f"{david_g.owner}: {david_score}")
-
-    total_gardens = GardenManager.create_garden_network()
-    print(f"Total gardens managed: {total_gardens}")
-
-
-if __name__ == "__main__":
-    main()
+        return cls.total
