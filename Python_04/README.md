@@ -1,3 +1,5 @@
+RAII:
+
 El concepto de RAII (Resource Acquisition Is Initialization) es el corazón
 de la seguridad en sistemas críticos.Aunque RAII nació en C++, en Python 
 aplicamos la misma filosofía, pero de una forma mucho más "limpia" gracias
