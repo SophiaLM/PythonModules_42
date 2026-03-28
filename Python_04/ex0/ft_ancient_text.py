@@ -2,7 +2,7 @@
 
 def recovery_system(file_name: str) -> None:
     try:
-        with open(file_name, "r") as f:
+        with open(file_name, "r", encoding="utf-8") as f:
             content = f.read()
             print(f"RECOVERED DATA:\n{content}")
             print("\nData recovery complete. Storage unit disconnected.")

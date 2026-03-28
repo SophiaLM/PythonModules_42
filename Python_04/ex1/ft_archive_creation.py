@@ -2,7 +2,7 @@
 
 def preservation_system(file_content: list) -> None:
     i = 0
-    with open("new_discovery.txt", "w") as file:
+    with open("new_discovery.txt", "w", encoding="utf-8") as file:
         print(f"Initializing new storage unit: {file.name}\n"
               "Storage unit created successfully...\n")
         for content in file_content:

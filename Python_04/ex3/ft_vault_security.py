@@ -3,11 +3,11 @@
 def vault_security_system(file_name: str, secure_type: str) -> None:
     try:
         if secure_type == "EXTRACTION":
-            with open(file_name, "r") as file:
+            with open(file_name, "r", encoding="utf-8") as file:
                 file_content = file.read()
                 print(f"SECURE {secure_type}:\n{file_content}\n")
         elif secure_type == "PRESERVATION":
-            with open(file_name, "w") as file:
+            with open(file_name, "w", encoding="utf-8") as file:
                 message = "[CLASSIFIED] New security protocols archived"
                 file.write(message)
                 print(f"SECURE {secure_type}:\n{message}\n")
