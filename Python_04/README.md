@@ -17,7 +17,7 @@ def codigo_peligroso_estilo_c():
     # ...esta línea NUNCA se ejecuta. Puerta abierta.
     vault.close()
 
-#2. ¿Qué es RAII en Python?
+# 2. ¿Qué es RAII en Python?
 En C++, RAII liga el recurso al ciclo de vida de un objeto 
 (Constructor/Destructor). En Python (Context Manager): El dueño
 es el Bloque de Código. La linterna se enciende cuando entras
@@ -25,7 +25,7 @@ en una "habitación" específica (with) y se apaga obligatoriamente
 cuando sales de esa habitación, sin importar si saliste caminando
 o si saliste volando por una explosión (excepción).
 
-#3. Ejemplos Reales en Python:
+# 3. Ejemplos Reales en Python:
 
 ----> Gestión de Archivos (Este proyecto)
 Es el ejemplo más puro de RAII. El "recurso" es el descriptor del
@@ -37,7 +37,7 @@ with open("ancient_vault.txt", "r") as vault:
     data = vault.read()
 Al salir de este bloque, el 'destructor' (__exit__) se activa solo.
 
-#4. Python: El Protocolo del Context Manager (with)
+# 4. Python: El Protocolo del Context Manager (with)
 Python no es tan determinista con los objetos (tiene un recolector
 de basura que decide cuándo borrar cosas), por eso usa el bloque
 de ejecución como ancla de seguridad.
