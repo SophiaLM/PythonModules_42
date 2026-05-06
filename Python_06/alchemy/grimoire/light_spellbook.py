@@ -14,7 +14,13 @@ water_name = water.split()[0]
 
 
 def light_spell_allowed_ingredients():
-    return [earth_name, air_name, fire_name, water_name]
+    return [
+        earth_name.lower(),
+        air_name.lower(),
+        fire_name.lower(),
+        water_name.lower(),
+        "and"
+        ]
 
 
 def light_spell_record(spell_name: str, ingredients: str):

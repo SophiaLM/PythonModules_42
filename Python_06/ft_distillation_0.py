@@ -6,6 +6,6 @@ healing = potions.healing_potion()
 strength = potions.strength_potion()
 
 print("=== Distillation 0 ===")
-print("Direct access to alchemy/potions.p")
-print(f"Testing healing_potion: {healing}")
+print("Direct access to alchemy/potions.py")
 print(f"Testing strength_potion: {strength}")
+print(f"Testing healing_potion: {healing}")
