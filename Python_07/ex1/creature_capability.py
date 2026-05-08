@@ -6,8 +6,7 @@ from ex1.Capability_class import HealCapability, TransformCapability
 class Sproutling(Creature, HealCapability):
 
     def heal(self, target=None) -> str:
-        if target is None:
-            return f"{self.name} heals itself for a small amount"
+        return f"{self.name} heals itself for a small amount"
 
     def attack(self) -> str:
         return f"{self.name} uses Vine Whip!"
@@ -16,8 +15,7 @@ class Sproutling(Creature, HealCapability):
 class Bloomelle(Creature, HealCapability):
 
     def heal(self, target=None) -> str:
-        if target is None:
-            return f"{self.name} heals itself and others for a large amount"
+        return f"{self.name} heals itself and others for a large amount"
 
     def attack(self) -> str:
         return f"{self.name} uses Petal Dance!"
@@ -48,9 +46,11 @@ class Morphagon(Creature, TransformCapability):
         TransformCapability.__init__(self)
 
     def transform(self) -> str:
+        self.transformed = True
         return f"{self.name} morphs into a dragonic battle form!"
 
     def revert(self) -> str:
+        self.transformed = False
         return f"{self.name} stabilizes its form."
 
     def attack(self) -> str:
