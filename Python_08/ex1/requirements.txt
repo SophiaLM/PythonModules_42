@@ -1,0 +1,6 @@
+# Matrix project dependencies — install with:
+#   pip install -r requirements.txt
+
+pandas>=2.1.0
+numpy>=1.25.0
+matplotlib>=3.7.2
